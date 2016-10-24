@@ -8,6 +8,8 @@ else ()
     set (CMAKE_CXX_STANDARD 11)
 endif ()
 
+set (CMAKE_EXPORT_COMPILE_COMMANDS 1)
+
 project (graph-analyzer)
 
 add_executable (graph-analyzer analyzer.cpp)

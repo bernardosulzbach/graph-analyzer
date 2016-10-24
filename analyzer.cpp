@@ -1,6 +1,6 @@
-#include <vector>
-#include <iostream>
 #include <cstdint>
+#include <iostream>
+#include <vector>
 
 static void read_graph_line(std::vector<std::vector<bool>> &matrix) {
   char ignored;
@@ -19,7 +19,8 @@ static void read_graph(std::vector<std::vector<bool>> &matrix) {
   }
 }
 
-static std::vector<std::vector<int64_t>> derive_components(std::vector<std::vector<bool>> &matrix) {
+static std::vector<std::vector<int64_t>>
+derive_components(std::vector<std::vector<bool>> &matrix) {
   std::vector<std::vector<int64_t>> components;
   return components;
 }

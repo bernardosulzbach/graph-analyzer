@@ -52,3 +52,6 @@ build/
 cmake_install.cmake
 CMakeFiles/
 CMakeCache.txt
+
+# LLVM
+compile_commands.json
