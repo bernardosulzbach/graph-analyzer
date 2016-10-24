@@ -1,3 +1,4 @@
+#include <algorithm>
 #include <cstdint>
 #include <iostream>
 #include <limits>
@@ -30,12 +31,18 @@ typedef struct TarjanNode {
 } TarjanNode;
 
 static void read_graph_line(std::vector<std::vector<bool>> &matrix) {
-  char ignored;
-  std::cin >> ignored;
+  std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '(');
   int64_t n;
   std::cin >> n;
-  int64_t x;
-  while (std::cin >> x) {
+  while (true) {
+    // Consume all whitespace.
+    std::cin >> std::ws;
+    if (std::cin.peek() == ')') {
+      // Got a closing parenthesis, stop.
+      break;
+    }
+    int64_t x;
+    std::cin >> x;
     matrix[n][x] = true;
   }
 }
@@ -104,12 +111,16 @@ derive_components(std::vector<std::vector<bool>> &matrix) {
       tarjan_start(components, nodes, node_stack, node, index);
     }
   }
+  for (std::vector<int64_t> &component : components) {
+    std::sort(component.begin(), component.end());
+  }
+  std::sort(components.begin(), components.end());
   return components;
 }
 
 static void print_components(std::vector<std::vector<bool>> &matrix) {
-  std::cout << "Components: ";
   std::vector<std::vector<int64_t>> components = derive_components(matrix);
+  std::cout << "Components: ";
   std::cout << "{ ";
   bool first_component = true;
   for (std::vector<int64_t> component : components) {
