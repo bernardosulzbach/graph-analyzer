@@ -47,6 +47,9 @@ install-sh
 missing
 waves
 
+# Python
+*.pyc
+
 # CMake
 build/
 cmake_install.cmake
