@@ -10,7 +10,7 @@ if [ ! -f $COMPILATION_DATABASE ]; then
 fi
 
 echo Formatting...
-clang-format -i *.{h,cpp}
+clang-format -i *.cpp
 
 echo Tidying up...
 clang-tidy *.cpp
