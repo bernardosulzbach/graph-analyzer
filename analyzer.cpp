@@ -6,9 +6,7 @@
 // purpose with or without fee is hereby granted, provided that the above
 // copyright notice and this permission notice appear in all copies.
 //
-// Authors:
-//   Bernardo Sulzbach (mafagafogigante@gmail.com)
-//   Leonardo Ferrazza (leoferrazza@gmail.com)
+// Author: Bernardo Sulzbach (mafagafogigante@gmail.com)
 
 #include <algorithm>
 #include <cstdint>
