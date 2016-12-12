@@ -75,13 +75,12 @@ static vector<TarjanNode> derive_nodes(const vector<vector<bool>> &matrix) {
 }
 
 static void tarjan_start(vector<vector<int64_t>> &components,
-                         vector<TarjanNode> &nodes,
-                         vector<TarjanNode *> &node_stack, TarjanNode &node,
-                         int64_t &index) {
+                         vector<TarjanNode> &nodes, vector<size_t> &node_stack,
+                         TarjanNode &node, int64_t &index) {
   node.index = index;
   node.link = index;
   index++;
-  node_stack.push_back(&node);
+  node_stack.push_back(node.id);
   node.stack = true;
   for (int64_t out : node.outgoing) {
     TarjanNode &next = nodes[out];
@@ -96,13 +95,15 @@ static void tarjan_start(vector<vector<int64_t>> &components,
   // If we have a new component, add it to the vector.
   if (node.link == node.index) {
     vector<int64_t> component;
-    TarjanNode &removed = *node_stack.back();
-    do {
-      removed = *node_stack.back();
+    while (true) {
+      TarjanNode &removed = nodes[node_stack.back()];
       node_stack.pop_back();
       removed.stack = false;
       component.push_back(removed.id);
-    } while (removed.id != node.id);
+      if (removed.id == node.id) {
+        break;
+      }
+    }
     components.push_back(component);
   }
 }
@@ -113,7 +114,7 @@ static void tarjan_start(vector<vector<int64_t>> &components,
 static vector<vector<int64_t>> derive_components(vector<vector<bool>> &matrix) {
   vector<vector<int64_t>> components;
   vector<TarjanNode> nodes = derive_nodes(matrix);
-  vector<TarjanNode *> node_stack;
+  vector<size_t> node_stack;
   int64_t index = 0;
   // Prevent value copies from the base vector.
   for (TarjanNode &node : nodes) {
